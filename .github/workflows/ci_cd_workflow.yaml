@@ -36,7 +36,7 @@ jobs:
 
       # TODO: add steps for 'ruff check' and 'pytest tests/'
       - name: Ruff check
-        run: uv run ruff check .
+        run: uv run ruff check lab11/
 
       - name: Pytest tests
-        run: uv run pytest tests/ -v
+        run: uv run pytest lab11/tests/ -v
