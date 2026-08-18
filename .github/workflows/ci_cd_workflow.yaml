@@ -95,6 +95,6 @@ jobs:
           REPOSITORY: ${{ env.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $REPOSITORY:$IMAGE_TAG .
+          docker build -f lab11/Dockerfile -t $REPOSITORY:$IMAGE_TAG lab11
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
