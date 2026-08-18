@@ -69,12 +69,12 @@ jobs:
 
         # Runs `prepare_model_from_hf.py`, downloads the HF weights into `model/zeroshot/`.
       - name: Prepare model from HuggingFace Hub
-        run: uv run python -m src.scripts.prepare_model_from_hf
+        run: uv run --project lab11 python -m src.scripts.prepare_model_from_hf
 
         # Runs `export_zeroshot_to_onnx.py`, converts the model to `model/onnx/zeroshot.onnx` and copies the fast tokenizer next to it.
         # `Dockerfile` will these files `COPY` into the Lambda image.
       - name: Export model to ONNX
-        run: uv run python -m src.scripts.export_zeroshot_to_onnx
+        run: uv run --project lab11 python -m src.scripts.export_zeroshot_to_onnx
 
         # `aws-actions/amazon-ecr-login@v2` does `docker login` for your private ECR registry. `
         # id: login-ecr` lets later steps reference its output (`steps.login-ecr.outputs.registry`).
