@@ -98,3 +98,24 @@ jobs:
           docker build -f lab11/Dockerfile -t $REPOSITORY:$IMAGE_TAG lab11
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+      - name: Delete stack if in rollback state
+        run: bash lab11/scripts/recover_rollback.sh
+        env:
+            STACK_NAME: sentiment-app-stack
+            AWS_REGION: ${{ env.AWS_REGION }}
+
+      - name: Resolve Lambda role ARN from name
+        id: lambda_role
+        run: bash lab11/scripts/resolve_lambda_role.sh
+        env:
+            ROLE_NAME: Lambda_AGH
+
+      - name: Deploy with AWS SAM
+        run: bash lab11/scripts/sam_deploy.sh
+        env:
+            STACK_NAME: sentiment-app-stack
+            AWS_REGION: ${{ env.AWS_REGION }}
+            IMAGE_REPOSITORY: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}
+            IMAGE_URI: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+            LAMBDA_ROLE_ARN: ${{ steps.lambda_role.outputs.role_arn }}
