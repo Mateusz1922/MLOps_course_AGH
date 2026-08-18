@@ -112,7 +112,8 @@ jobs:
             ROLE_NAME: Lambda_AGH
 
       - name: Deploy with AWS SAM
-        run: bash lab11/scripts/sam_deploy.sh
+        working-directory: lab11
+        run: bash scripts/sam_deploy.sh
         env:
             STACK_NAME: sentiment-app-stack
             AWS_REGION: ${{ env.AWS_REGION }}
