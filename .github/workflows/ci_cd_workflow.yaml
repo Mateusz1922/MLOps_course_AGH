@@ -39,4 +39,4 @@ jobs:
         run: uv run --project lab11 ruff check lab11/
 
       - name: Pytest tests
-        run: uv run --project pytest lab11/tests/ -v
+        run: uv run --project lab11 pytest lab11/tests/ -v
