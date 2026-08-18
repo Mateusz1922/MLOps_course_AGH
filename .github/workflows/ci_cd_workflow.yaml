@@ -32,11 +32,11 @@ jobs:
 
       - name: Install dependencies
         # TODO: sync ONLY the `integration` group dependencies
-        run: uv sync --group integration
+        run: uv sync --project lab11 --group integration
 
       # TODO: add steps for 'ruff check' and 'pytest tests/'
       - name: Ruff check
-        run: uv run ruff check lab11/
+        run: uv run --project lab11 ruff check lab11/
 
       - name: Pytest tests
-        run: uv run pytest lab11/tests/ -v
+        run: uv run --project pytest lab11/tests/ -v
